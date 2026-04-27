@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skill Library</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #0d0d0d;
+    --surface: #141414;
+    --surface2: #1c1c1c;
+    --border: #252525;
+    --accent: #c8f060;
+    --accent2: #60c8f0;
+    --accent3: #f060a8;
+    --text: #e8e8e8;
+    --muted: #555;
+    --muted2: #777;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ────────────────────────────────
+     HERO
+  ──────────────────────────────── */
+  .hero {
+    padding: 2.8rem 2.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: end;
+  }
+
+  .hero-left h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    letter-spacing: -0.04em;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.7rem;
+  }
+
+  .hero-tagline {
+    font-size: 0.82rem;
+    color: var(--muted2);
+    line-height: 1.7;
+    max-width: 480px;
+  }
+
+  .hero-tagline strong { color: var(--text); font-weight: 500; }
+
+  /* HOW IT WORKS — 3 steps inline */
+  .how {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 1.4rem;
+  }
+
+  .how-step {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .how-num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem;
+    color: var(--muted2);
+    flex-shrink: 0;
+  }
+
+  .how-text {
+    font-size: 0.72rem;
+    color: var(--muted2);
+    white-space: nowrap;
+  }
+
+  .how-text em { color: var(--accent); font-style: normal; }
+
+  .how-arrow {
+    padding: 0 0.7rem;
+    color: var(--border);
+    font-size: 0.7rem;
+  }
+
+  /* HERO RIGHT — example snippet */
+  .hero-demo {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    min-width: 280px;
+    max-width: 320px;
+  }
+
+  .demo-label {
+    font-size: 0.6rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.6rem;
+  }
+
+  .demo-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .demo-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.72rem;
+  }
+
+  .demo-icon {
+    width: 20px; height: 20px;
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem;
+    flex-shrink: 0;
+  }
+
+  .demo-icon.skill { background: rgba(200,240,96,0.1); color: var(--accent); border: 1px solid rgba(200,240,96,0.2); }
+  .demo-icon.ai { background: rgba(96,200,240,0.1); color: var(--accent2); border: 1px solid rgba(96,200,240,0.2); }
+  .demo-icon.out { background: rgba(240,96,168,0.1); color: var(--accent3); border: 1px solid rgba(240,96,168,0.2); }
+
+  .demo-name { color: var(--text); }
+  .demo-sub { color: var(--muted2); font-size: 0.65rem; }
+
+  .demo-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0.4rem 0;
+  }
+
+  /* ────────────────────────────────
+     TOOLBAR
+  ──────────────────────────────── */
+  .toolbar {
+    padding: 0.8rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .tab {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    padding: 0.38rem 0.85rem;
+    cursor: pointer;
+    color: var(--muted2);
+    background: transparent;
+    border: none;
+    transition: all 0.15s;
+    font-family: 'DM Mono', monospace;
+    border-right: 1px solid var(--border);
+  }
+
+  .tab:last-child { border-right: none; }
+  .tab:hover { color: var(--text); background: var(--surface); }
+  .tab.active { color: var(--accent); background: rgba(200,240,96,0.06); }
+
+  .tab .ct {
+    display: inline-block;
+    background: var(--surface2);
+    border-radius: 8px;
+    font-size: 0.55rem;
+    padding: 0.05rem 0.35rem;
+    margin-left: 0.3rem;
+    color: var(--muted);
+  }
+  .tab.active .ct { background: rgba(200,240,96,0.1); color: var(--accent); }
+
+  .search-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 160px;
+  }
+
+  .search-wrap input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.76rem;
+    padding: 0.4rem 0.8rem 0.4rem 1.9rem;
+    border-radius: 3px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-wrap input::placeholder { color: var(--muted); }
+  .si { position: absolute; left: 0.6rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 0.68rem; }
+
+  .filters { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+
+  .fb {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted2);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    padding: 0.32rem 0.65rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .fb:hover, .fb.active { border-color: var(--accent); color: var(--accent); background: rgba(200,240,96,0.04); }
+
+  .add-btn {
+    background: rgba(200,240,96,0.08);
+    border: 1px solid rgba(200,240,96,0.25);
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    padding: 0.38rem 0.9rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  .add-btn:hover { background: rgba(200,240,96,0.14); }
+
+  /* ────────────────────────────────
+     MAIN LAYOUT
+  ──────────────────────────────── */
+  .main {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    flex: 1;
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  /* ────────────────────────────────
+     SKILL LIST
+  ──────────────────────────────── */
+  .skill-list {
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .skill-list::-webkit-scrollbar { width: 3px; }
+  .skill-list::-webkit-scrollbar-thumb { background: var(--border); }
+
+  .list-meta {
+    padding: 0.45rem 1.3rem;
+    font-size: 0.6rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .skill-item {
+    padding: 1rem 1.3rem;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.12s;
+  }
+
+  .skill-item:hover { background: var(--surface); }
+
+  .skill-item.active {
+    background: var(--surface2);
+    border-left: 2px solid var(--accent);
+    padding-left: calc(1.3rem - 2px);
+  }
+
+  .skill-item.mine.active { border-left-color: var(--accent3); }
+
+  .si-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .si-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.83rem;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .si-ver { font-size: 0.58rem; color: var(--muted); white-space: nowrap; margin-top: 0.1rem; }
+
+  /* WHEN TO USE — key line */
+  .si-when {
+    font-size: 0.68rem;
+    color: var(--accent2);
+    margin-bottom: 0.3rem;
+    line-height: 1.4;
+  }
+
+  .si-when::before {
+    content: 'Use when: ';
+    color: var(--muted);
+  }
+
+  .si-desc {
+    font-size: 0.67rem;
+    color: var(--muted2);
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .si-tags { display: flex; gap: 0.3rem; flex-wrap: wrap; align-items: center; }
+
+  .tag {
+    font-size: 0.56rem;
+    padding: 0.1rem 0.38rem;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .tag.cat { color: var(--accent); border-color: rgba(200,240,96,0.25); }
+  .tag.cat-business { color: #f0a060; border-color: rgba(240,160,96,0.25); }
+  .tag.cat-ai { color: var(--accent2); border-color: rgba(96,200,240,0.25); }
+  .tag.cat-thinking { color: #a060f0; border-color: rgba(160,96,240,0.25); }
+  .tag.cat-education { color: #60f0a0; border-color: rgba(96,240,160,0.25); }
+  .tag.cat-framework { color: var(--accent); border-color: rgba(200,240,96,0.25); }
+  .tag.cat-mine { color: var(--accent3); border-color: rgba(240,96,168,0.25); }
+
+  .mine-badge {
+    font-size: 0.53rem;
+    padding: 0.08rem 0.32rem;
+    background: rgba(240,96,168,0.08);
+    border: 1px solid rgba(240,96,168,0.25);
+    border-radius: 2px;
+    color: var(--accent3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ────────────────────────────────
+     VIEWER
+  ──────────────────────────────── */
+  .viewer {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .viewer-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 1rem;
+  }
+
+  .vh-left {}
+  .vh-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+    margin-bottom: 0.15rem;
+  }
+
+  .vh-meta { font-size: 0.6rem; color: var(--muted); }
+
+  .vh-actions { display: flex; gap: 0.45rem; flex-shrink: 0; }
+
+  .vbtn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted2);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .vbtn:hover { border-color: var(--text); color: var(--text); }
+
+  .vbtn.copy {
+    border-color: rgba(200,240,96,0.4);
+    color: var(--accent);
+    background: rgba(200,240,96,0.05);
+    font-weight: 500;
+    font-size: 0.68rem;
+    padding: 0.35rem 1rem;
+  }
+
+  .vbtn.copy:hover { background: rgba(200,240,96,0.12); }
+  .vbtn.copy.done { border-color: var(--accent); background: rgba(200,240,96,0.1); }
+  .vbtn.danger:hover { border-color: #f06060; color: #f06060; }
+
+  /* COPY INSTRUCTION — shown below button */
+  .copy-instruction {
+    padding: 0.5rem 1.5rem;
+    background: rgba(200,240,96,0.03);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.65rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .ci-step {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .ci-num {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: rgba(200,240,96,0.1);
+    border: 1px solid rgba(200,240,96,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.55rem;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .ci-arr { color: var(--border); }
+
+  .viewer-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.4rem 1.5rem;
+  }
+
+  .viewer-body::-webkit-scrollbar { width: 3px; }
+  .viewer-body::-webkit-scrollbar-thumb { background: var(--border); }
+
+  /* ── MARKDOWN ── */
+  .md h1 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--accent); margin-bottom: 0.6rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+  .md h2 { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.8rem; color: var(--accent2); margin: 1rem 0 0.35rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .md h3 { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.76rem; color: var(--text); margin: 0.8rem 0 0.3rem; }
+  .md p { font-size: 0.75rem; line-height: 1.75; color: #b0b0b0; margin-bottom: 0.5rem; }
+  .md ul, .md ol { padding-left: 1rem; margin-bottom: 0.5rem; }
+  .md li { font-size: 0.73rem; line-height: 1.8; color: #b0b0b0; }
+  .md code { font-family: 'DM Mono', monospace; font-size: 0.7rem; background: var(--surface2); border: 1px solid var(--border); padding: 0.08rem 0.32rem; border-radius: 2px; color: var(--accent); }
+  .md pre { background: var(--surface2); border: 1px solid var(--border); border-radius: 3px; padding: 0.9rem 1rem; margin: 0.5rem 0; overflow-x: auto; }
+  .md pre code { background: none; border: none; padding: 0; font-size: 0.7rem; color: #ccc; line-height: 1.7; }
+  .md blockquote { border-left: 2px solid var(--accent); padding-left: 0.8rem; margin: 0.5rem 0; color: var(--muted2); font-size: 0.72rem; font-style: italic; }
+  .md hr { border: none; border-top: 1px solid var(--border); margin: 0.9rem 0; }
+  .md table { width: 100%; border-collapse: collapse; margin: 0.5rem 0; font-size: 0.7rem; }
+  .md th { background: var(--surface2); padding: 0.35rem 0.6rem; text-align: left; color: var(--muted2); border: 1px solid var(--border); }
+  .md td { padding: 0.3rem 0.6rem; border: 1px solid var(--border); color: #b0b0b0; }
+
+  /* EMPTY */
+  .empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.72rem;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .empty .big { font-size: 1.8rem; opacity: 0.12; margin-bottom: 0.3rem; }
+
+  /* ────────────────────────────────
+     ADD MODAL
+  ──────────────────────────────── */
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(3px);
+  }
+
+  .overlay.show { display: flex; }
+
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    width: 540px;
+    max-width: 92vw;
+    max-height: 82vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-hd {
+    padding: 0.9rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-hd-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+  }
+
+  .modal-close { background: none; border: none; color: var(--muted); font-size: 1rem; cursor: pointer; padding: 0.1rem 0.3rem; }
+  .modal-close:hover { color: var(--text); }
+
+  .modal-body {
+    padding: 1rem 1.2rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    flex: 1;
+  }
+
+  .field label {
+    display: block;
+    font-size: 0.6rem;
+    color: var(--muted2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+  }
+
+  .field input, .field select, .field textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.74rem;
+    padding: 0.45rem 0.65rem;
+    border-radius: 3px;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: vertical;
+  }
+
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); }
+  .field textarea { min-height: 160px; line-height: 1.6; }
+  .field select option { background: var(--surface2); }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+
+  .modal-ft {
+    padding: 0.7rem 1.2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.7rem;
+    padding: 0.55rem 0.9rem;
+    border-radius: 3px;
+    z-index: 300;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: all 0.18s;
+    pointer-events: none;
+  }
+
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .toast.ok { border-color: var(--accent); color: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-left">
+    <h1>Skill Library</h1>
+    <p class="hero-tagline">
+      A collection of <strong>thinking and working skills</strong> written in Markdown.<br>
+      Pick a skill, copy it, paste it into any AI — the AI reads the structure and applies it immediately.
+    </p>
+    <div class="how">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <div class="how-text">Pick a <em>skill</em></div>
+      </div>
+      <div class="how-arrow">→</div>
+      <div class="how-step">
+        <div class="how-num">2</div>
+        <div class="how-text"><em>Copy MD</em></div>
+      </div>
+      <div class="how-arrow">→</div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <div class="how-text">Paste into <em>any AI</em></div>
+      </div>
+      <div class="how-arrow">→</div>
+      <div class="how-step">
+        <div class="how-num">4</div>
+        <div class="how-text">AI <em>applies it</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-demo">
+    <div class="demo-label">Example — Meeting improvement</div>
+    <div class="demo-flow">
+      <div class="demo-row">
+        <div class="demo-icon skill">S</div>
+        <div><div class="demo-name">Meeting Decision Skill</div><div class="demo-sub">+ Observation Before Opinion</div></div>
+      </div>
+      <div class="demo-divider"></div>
+      <div class="demo-row">
+        <div class="demo-icon ai">AI</div>
+        <div><div class="demo-name">Paste into AI</div><div class="demo-sub">No explanation needed</div></div>
+      </div>
+      <div class="demo-divider"></div>
+      <div class="demo-row">
+        <div class="demo-icon out">↓</div>
+        <div><div class="demo-name">Decision log · Next actions</div><div class="demo-sub">Structured output, every time</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOOLBAR ── -->
+<div class="toolbar">
+  <div class="tabs">
+    <button class="tab active" id="tab-library" onclick="switchTab('library')">Library <span class="ct" id="ct-lib">0</span></button>
+    <button class="tab" id="tab-mine" onclick="switchTab('mine')">My Skills <span class="ct" id="ct-mine">0</span></button>
+  </div>
+  <div class="search-wrap">
+    <span class="si">⌕</span>
+    <input type="text" id="searchInput" placeholder="search skills..." oninput="render()">
+  </div>
+  <div class="filters">
+    <button class="fb active" onclick="setFilter('all',this)">All</button>
+    <button class="fb" onclick="setFilter('business',this)">Business</button>
+    <button class="fb" onclick="setFilter('ai',this)">AI</button>
+    <button class="fb" onclick="setFilter('thinking',this)">Thinking</button>
+    <button class="fb" onclick="setFilter('education',this)">Education</button>
+    <button class="fb" onclick="setFilter('framework',this)">Framework</button>
+  </div>
+  <button class="add-btn" onclick="openModal()">+ Add Skill</button>
+</div>
+
+<!-- ── MAIN ── -->
+<div class="main">
+  <div class="skill-list">
+    <div class="list-meta" id="listMeta"></div>
+    <div id="skillList"></div>
+  </div>
+
+  <div class="viewer">
+    <div class="empty" id="emptyV">
+      <div class="big">←</div>
+      <div>Select a skill</div>
+      <div style="font-size:0.62rem;color:var(--muted);margin-top:0.2rem">Copy Markdown → paste into any AI</div>
+    </div>
+    <div id="viewerInner" style="display:none;flex-direction:column;height:100%;overflow:hidden;">
+      <div class="viewer-header">
+        <div class="vh-left">
+          <div class="vh-title" id="vhTitle"></div>
+          <div class="vh-meta" id="vhMeta"></div>
+        </div>
+        <div class="vh-actions" id="vhActions"></div>
+      </div>
+      <div class="viewer-body">
+        <div class="md" id="mdContent"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── ADD MODAL ── -->
+<div class="overlay" id="addModal">
+  <div class="modal">
+    <div class="modal-hd">
+      <div class="modal-hd-title">Add Skill</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="field-row">
+        <div class="field"><label>Title</label><input id="f-title" placeholder="My Skill"></div>
+        <div class="field"><label>Version</label><input id="f-ver" placeholder="v0.1"></div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Category</label>
+          <select id="f-cat">
+            <option value="thinking">Thinking</option>
+            <option value="business">Business</option>
+            <option value="ai">AI</option>
+            <option value="education">Education</option>
+            <option value="framework">Framework</option>
+          </select>
+        </div>
+        <div class="field"><label>When to use (one line)</label><input id="f-when" placeholder="you need to…"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Description</label><input id="f-desc" placeholder="Short description"></div>
+        <div class="field"><label>Tags (comma separated)</label><input id="f-tags" placeholder="tag1, tag2"></div>
+      </div>
+      <div class="field"><label>Markdown Content</label><textarea id="f-md" placeholder="# Skill Title&#10;&#10;## Purpose&#10;..."></textarea></div>
+    </div>
+    <div class="modal-ft">
+      <button class="vbtn" onclick="closeModal()">Cancel</button>
+      <button class="vbtn copy" onclick="saveSkill()">Save to My Skills</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── LIBRARY DATA ──────────────────────────────────────
+const LIBRARY = [
+  {
+    id:'lib-1', title:"Customer Refund Protocol", version:"v1.2",
+    category:"business", when:"handling refund requests inconsistently",
+    tags:["customer-service","refund","escalation"],
+    description:"Decision tree for refund requests. Covers receipt verification, purchase validation, and escalation.",
+    markdown:`# Customer Refund Skill
+version: 1.2 | category: business | ai_readable: true
+
+## Purpose
+Handle customer refund requests consistently across all agents.
+
+## Decision Tree
+
+\`\`\`
+if receipt exists
+  → approve refund immediately
+
+if no receipt
+  → verify purchase date
+
+  if purchase < 30 days
+    → approve with ID verification
+
+  if purchase > 30 days
+    → check product condition
+
+    if defective → approve exchange or store credit
+    if not defective → escalate to manager
+
+if verification fails
+  → escalate to manager
+  → document in CRM
+\`\`\`
+
+## Escalation Triggers
+- Customer requests manager
+- Purchase > 90 days
+- Amount > $500
+- Suspected fraud`
+  },
+  {
+    id:'lib-2', title:"AI Session Initialization", version:"v0.9",
+    category:"ai", when:"starting an AI session and output keeps missing the point",
+    tags:["ai","context","session"],
+    description:"Structured warm-up for AI sessions. Sets role, constraints, and output format before the first real query.",
+    markdown:`# AI Session Initialization Skill
+version: 0.9 | category: ai | ai_readable: true
+
+## Purpose
+Eliminate cold-start friction. Load context, constraints, and output format upfront.
+
+## Initialization Sequence
+
+\`\`\`
+STEP 1 — Identity Frame
+  role: [who you are]
+  expertise_level: [novice / practitioner / expert]
+
+STEP 2 — Task Frame
+  primary_goal: [one sentence]
+  constraints: [limits]
+  anti_goals: [what you do NOT want]
+
+STEP 3 — Output Frame
+  format: [bullet / prose / code / table]
+  length: [short / medium / detailed]
+  tone: [formal / casual / technical]
+
+STEP 4 — Knowledge Frame
+  assume_known: [background AI can skip]
+  assume_unknown: [things AI should explain]
+\`\`\`
+
+## Why This Works
+AI reads the full frame before generating. Output matches intent on first attempt.`
+  },
+  {
+    id:'lib-3', title:"Observation Before Opinion", version:"v1.0",
+    category:"thinking", when:"jumping to conclusions before seeing the full picture",
+    tags:["thinking","analysis","bias"],
+    description:"Separate raw observation from interpretation. Prevents premature conclusions in complex analysis.",
+    markdown:`# Observation Before Opinion Skill
+version: 1.0 | category: thinking | ai_readable: true
+
+## Purpose
+Hard separation between what is observed and what is interpreted.
+Most reasoning errors occur when interpretation contaminates observation.
+
+## Layers
+
+\`\`\`
+LAYER 1 — Raw Observation (facts only)
+  What happened? What was measured?
+  → No adjectives. No causation. No judgment.
+
+LAYER 2 — Pattern Recognition
+  What repeats? What is absent?
+  → Still no interpretation.
+
+LAYER 3 — Hypothesis Generation
+  Generate ≥3 competing hypotheses.
+  → Do not select yet.
+
+LAYER 4 — Hypothesis Testing
+  Which is falsifiable?
+  What evidence eliminates each hypothesis?
+
+LAYER 5 — Provisional Conclusion
+  Which survives?
+  Confidence: 0–1
+  What would change this conclusion?
+\`\`\`
+
+## Failure Modes
+- Skipping directly to Layer 5
+- Generating only one hypothesis
+- Confidence > 0.9 on first pass`
+  },
+  {
+    id:'lib-4', title:"Meeting Decision Protocol", version:"v0.8",
+    category:"business", when:"meetings end with no clear next step or owner",
+    tags:["meeting","decision","async"],
+    description:"Every meeting produces a decision, action, or explicit deferral. Nothing else is valid.",
+    markdown:`# Meeting Decision Skill
+version: 0.8 | category: business | ai_readable: true
+
+## Rule
+Every meeting must produce: decision, action, or explicit deferral.
+
+## Types
+
+\`\`\`
+TYPE A — Decision
+  decision: [what was decided]
+  owner: [single person — not a team]
+  rationale: [one sentence]
+  reversible: [yes / no]
+
+TYPE B — Action
+  action: [specific task]
+  owner: [single person]
+  deadline: [date — not "ASAP"]
+  success_criteria: [how we know it's done]
+
+TYPE C — Deferral
+  topic: [what was deferred]
+  reason: [why not today]
+  next_review: [date]
+  information_needed: [what unblocks this]
+\`\`\`
+
+## Validation
+If owner cannot be a single name → meeting is not done.
+If deadline is "ASAP" → classify as TYPE C.`
+  },
+  {
+    id:'lib-5', title:"Concept Stress-Test", version:"v1.1",
+    category:"thinking", when:"committing to an idea before exposing its weak points",
+    tags:["thinking","ideation","validation"],
+    description:"Adversarial testing for new ideas. Surfaces hidden assumptions before commitment.",
+    markdown:`# Concept Stress-Test Skill
+version: 1.1 | category: thinking | ai_readable: true
+
+## Purpose
+Expose weakest points before committing resources.
+Good ideas survive. Weak ideas collapse — that is the intended outcome.
+
+## Sequence
+
+\`\`\`
+ROUND 1 — Steel Man
+  State concept in its strongest possible form.
+
+ROUND 2 — Assumption Excavation
+  List every assumption.
+  Mark each: [verified / plausible / speculative / unknown]
+
+ROUND 3 — Inversion
+  What would cause complete failure?
+  Most likely failure mode?
+  Catastrophic failure mode?
+
+ROUND 4 — Competitor Analysis
+  Who tried this before?
+  Why did they succeed / fail?
+
+ROUND 5 — Minimum Viable Signal
+  Smallest test to confirm / deny the core assumption?
+  Success at 30 days? 90 days?
+\`\`\`
+
+## Output
+\`\`\`
+steel_man:
+critical_assumptions: []
+top_failure_mode:
+mvs_test:
+go_decision: [yes / no / conditional]
+\`\`\`
+
+## Note to AI
+Do not skip ROUND 3. Be adversarial — politeness is not useful here.`
+  },
+  {
+    id:'lib-6', title:"Onboarding Knowledge Transfer", version:"v0.7",
+    category:"education", when:"onboarding someone and the unwritten rules never get passed on",
+    tags:["onboarding","knowledge","education"],
+    description:"Captures tacit knowledge from expert to newcomer — the things that aren't in any document.",
+    markdown:`# Onboarding Knowledge Transfer Skill
+version: 0.7 | category: education | ai_readable: true
+
+## Purpose
+Explicit knowledge (docs) transfers easily.
+Tacit knowledge (why we do it this way, who to actually ask, what failed before) transfers poorly.
+This skill captures the tacit layer.
+
+## Structure
+
+\`\`\`
+MODULE 1 — The Map
+  What does this role actually affect?
+  What breaks if they make a mistake?
+
+MODULE 2 — The History
+  3 biggest failures in this area and what was learned.
+
+MODULE 3 — The Unwritten Rules
+  What veterans know that isn't documented.
+  What sounds reasonable but doesn't work here.
+  Who are the real decision-makers (not org chart).
+
+MODULE 4 — The Shortcuts
+  What takes 2 hours for newcomers but 10 minutes for veterans.
+
+MODULE 5 — The Success Pattern
+  What "doing this well" looks like.
+  30 / 60 / 90 day milestones.
+\`\`\`
+
+## AI Usage
+Paste this skill + existing docs. Ask AI: "What questions remain unanswered?"
+Those gaps are the tacit knowledge to extract.`
+  },
+  {
+    id:'lib-7', title:"LoPAS-MCCP", version:"v1.0",
+    category:"framework", advanced:true, when:"AI context loading is expensive, slow, or semantically noisy",
+    tags:["memory","compression","DoQ","LoPAS","context"],
+    description:"Memory Compression & Classification Protocol. Entry gate that measures input type before loading any context.",
+    markdown:`# LoPAS-MCCP
+## Memory Compression & Classification Protocol
+version: 1.0 | category: framework | ai_readable: true
+
+> The structural answer to RAG token explosion.
+
+---
+
+## Why This Exists
+
+Most AI workflows treat context as a container — fill it with everything, let the model sort it out.
+
+This breaks in three ways:
+1. Token explosion — cost scales with context size, not question complexity
+2. Meaning degradation — irrelevant chunks contaminate semantic proximity
+3. No entry gate — every input triggers full context load
+
+MCCP solves the entry problem. Before anything loads, the input is measured.
+
+---
+
+## Core Concept
+
+\`\`\`
+Input → [DoQ Measurement] → [L-Tag Classification] → [Minimum Context Load] → Processing
+\`\`\`
+
+---
+
+## Step 1: DoQ Measurement
+
+\`\`\`
+DoQ < 0.4  →  Minimal Processing Mode   (~80% token saving)
+DoQ ≥ 0.4  →  Precision Analysis Mode   (30–50% token saving)
+\`\`\`
+
+---
+
+## Step 2: L-Tag Classification
+
+\`\`\`
+L-STR  Structural   structure, balance, stability     → BCDI, SCI, CDI, FTI
+L-INF  Inference    reasoning, cause, hypothesis      → CII, LPI, RII
+L-REL  Relational   connection, resonance             → CRI, CCI, RVI
+L-DYN  Dynamic      change, transition, cycle         → TRS, LPTM, AHI
+\`\`\`
+
+Non-matching layers are structurally blocked — not filtered, blocked.
+
+---
+
+## LoPAS Stack Position
+
+\`\`\`
+Reality → VisualStructure → TranslatedVoice → MCCP ← here
+→ RNC → LPTM/CAG → Protocol Engine → DDA → LCA → ProtocolMemory
+\`\`\`
+
+Source: https://github.com/hanabokur0/LoPAS-MCCP`
+  }
+];
+
+// ── STATE ─────────────────────────────────────────────
+let activeTab = 'library';
+let activeFilter = 'all';
+let activeId = null;
+
+function getMySkills() {
+  try { return JSON.parse(localStorage.getItem('mySkills')||'[]'); } catch { return []; }
+}
+function saveMySkills(s) { localStorage.setItem('mySkills', JSON.stringify(s)); }
+
+// ── TABS ──────────────────────────────────────────────
+function switchTab(t) {
+  activeTab = t;
+  activeId = null;
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  resetViewer();
+  render();
+}
+
+function setFilter(f, btn) {
+  activeFilter = f;
+  document.querySelectorAll('.fb').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+// ── RENDER ────────────────────────────────────────────
+function render() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const src = activeTab === 'library' ? LIBRARY : getMySkills();
+  const mine = activeTab === 'mine';
+
+  const filtered = src.filter(s => {
+    const mc = activeFilter === 'all' || s.category === activeFilter;
+    const mq = !q || s.title.toLowerCase().includes(q) ||
+      (s.when||'').toLowerCase().includes(q) ||
+      s.description.toLowerCase().includes(q) ||
+      (s.tags||[]).some(t=>t.includes(q));
+    const showAdv = activeFilter === 'framework' || !s.advanced;
+    return mc && mq && showAdv;
+  });
+
+  document.getElementById('ct-lib').textContent = LIBRARY.length;
+  document.getElementById('ct-mine').textContent = getMySkills().length;
+  document.getElementById('listMeta').textContent = `${filtered.length} skill${filtered.length!==1?'s':''}`;
+
+  document.getElementById('skillList').innerHTML = filtered.length === 0
+    ? `<div class="empty" style="padding:3rem 1rem">
+        <div class="big">${mine?'＋':'∅'}</div>
+        <div>${mine?'No skills yet — click + Add Skill':'No results'}</div>
+       </div>`
+    : filtered.map(s => `
+      <div class="skill-item ${s.id===activeId?'active':''} ${mine?'mine':''}" onclick="openSkill('${s.id}')">
+        <div class="si-top">
+          <div class="si-name">${s.title}</div>
+          <div style="display:flex;gap:0.3rem;align-items:center;flex-shrink:0">
+            ${mine?'<span class="mine-badge">mine</span>':''}
+            <span class="si-ver">${s.version}</span>
+          </div>
+        </div>
+        ${s.when ? `<div class="si-when">${s.when}</div>` : ''}
+        <div class="si-desc">${s.description}</div>
+        <div class="si-tags">
+          <span class="tag cat-${mine?'mine':s.category}">${s.category}</span>
+          ${(s.tags||[]).slice(0,3).map(t=>`<span class="tag">${t}</span>`).join('')}
+        </div>
+      </div>
+    `).join('');
+}
+
+// ── VIEWER ────────────────────────────────────────────
+function openSkill(id) {
+  activeId = id;
+  const src = [...LIBRARY, ...getMySkills()];
+  const s = src.find(x=>x.id===id);
+  if (!s) return;
+
+  const mine = activeTab === 'mine';
+  document.getElementById('emptyV').style.display = 'none';
+  const vi = document.getElementById('viewerInner');
+  vi.style.display = 'flex';
+
+  document.getElementById('vhTitle').textContent = s.title;
+  document.getElementById('vhMeta').textContent = `${s.version} · ${s.category}${s.when?' · Use when: '+s.when:''}`;
+  document.getElementById('mdContent').innerHTML = renderMD(s.markdown);
+
+  document.getElementById('vhActions').innerHTML = `
+    ${mine
+      ? `<button class="vbtn danger" onclick="deleteSkill('${s.id}')">Delete</button>`
+      : `<button class="vbtn" onclick="forkSkill('${s.id}')">Fork</button>`
+    }
+    <button class="vbtn copy" id="copyBtn" onclick="copyMD('${s.id}')">Copy MD</button>
+  `;
+
+  render();
+}
+
+function resetViewer() {
+  document.getElementById('emptyV').style.display = 'flex';
+  document.getElementById('viewerInner').style.display = 'none';
+}
+
+function copyMD(id) {
+  const s = [...LIBRARY, ...getMySkills()].find(x=>x.id===id);
+  if (!s) return;
+  navigator.clipboard.writeText(s.markdown).then(()=>{
+    const b = document.getElementById('copyBtn');
+    if (b) { b.textContent='Copied ✓'; b.classList.add('done'); }
+    toast('Copied — paste into any AI', true);
+    setTimeout(()=>{ if(b){b.textContent='Copy MD';b.classList.remove('done');} },2200);
+  });
+}
+
+function forkSkill(id) {
+  const s = LIBRARY.find(x=>x.id===id);
+  if (!s) return;
+  const mine = getMySkills();
+  mine.push({...s, id:'mine-'+Date.now(), title:s.title+' (fork)', version:'v0.1'});
+  saveMySkills(mine);
+  toast('Forked to My Skills');
+  render();
+}
+
+function deleteSkill(id) {
+  saveMySkills(getMySkills().filter(s=>s.id!==id));
+  resetViewer(); activeId=null;
+  toast('Deleted'); render();
+}
+
+// ── ADD MODAL ─────────────────────────────────────────
+function openModal() { document.getElementById('addModal').classList.add('show'); }
+
+function closeModal() {
+  document.getElementById('addModal').classList.remove('show');
+  ['f-title','f-ver','f-when','f-tags','f-desc','f-md'].forEach(id=>{ document.getElementById(id).value=''; });
+}
+
+function saveSkill() {
+  const title = document.getElementById('f-title').value.trim();
+  const md = document.getElementById('f-md').value.trim();
+  if (!title||!md) { toast('Title and Markdown required'); return; }
+  const mine = getMySkills();
+  mine.push({
+    id:'mine-'+Date.now(),
+    title,
+    version: document.getElementById('f-ver').value.trim()||'v0.1',
+    category: document.getElementById('f-cat').value,
+    when: document.getElementById('f-when').value.trim(),
+    tags: document.getElementById('f-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
+    description: document.getElementById('f-desc').value.trim()||title,
+    markdown: md
+  });
+  saveMySkills(mine);
+  closeModal();
+  switchTab('mine');
+  toast('Skill saved', true);
+}
+
+// ── MARKDOWN ─────────────────────────────────────────
+function renderMD(md) {
+  let h = md
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/```([\s\S]*?)```/g,(_,c)=>`<pre><code>${c}</code></pre>`)
+    .replace(/`([^`]+)`/g,(_,c)=>`<code>${c}</code>`)
+    .replace(/^### (.+)$/gm,'<h3>$1</h3>')
+    .replace(/^## (.+)$/gm,'<h2>$1</h2>')
+    .replace(/^# (.+)$/gm,'<h1>$1</h1>')
+    .replace(/^> (.+)$/gm,'<blockquote>$1</blockquote>')
+    .replace(/^---$/gm,'<hr>')
+    .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g,'<em>$1</em>');
+
+  h = h.replace(/(\|.+\|\n?)+/g, match=>{
+    const rows = match.trim().split('\n');
+    const hd = rows[0].split('|').filter(c=>c.trim()).map(c=>`<th>${c.trim()}</th>`).join('');
+    const bd = rows.slice(2).map(r=>'<tr>'+r.split('|').filter(c=>c.trim()).map(c=>`<td>${c.trim()}</td>`).join('')+'</tr>').join('');
+    return `<table><thead><tr>${hd}</tr></thead><tbody>${bd}</tbody></table>`;
+  });
+
+  h = h.split('\n').map(line=>{
+    if(!line.trim()) return '';
+    if(/^<(h[123]|pre|blockquote|hr|table|ul|ol)/.test(line)) return line;
+    return `<p>${line}</p>`;
+  }).join('\n');
+
+  return h;
+}
+
+// ── TOAST ─────────────────────────────────────────────
+function toast(msg, ok=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (ok?' ok':'');
+  setTimeout(()=>t.className='toast', 2200);
+}
+
+render();
+</script>
+</body>
+</html>
