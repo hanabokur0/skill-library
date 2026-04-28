@@ -817,6 +817,134 @@ if verification fails
 - Suspected fraud`
   },
   {
+    id:'lib-2', title:"RNC — Responsibility Normalization Contract", version:"v1.0",
+    category:"framework", when:"入力検証プロセスを人の判断なしに自動化したいとき",
+    tags:["responsibility","validation","automation","lopas"],
+    description:"人の裁量をゼロにし、責任を入力層に戻すプロトコル。True/Falseのみ返す即時決定システム。",
+    markdown:`# RNC — Responsibility Normalization Contract
+**Version:** 1.0 | **Category:** Framework
+**Source:** https://github.com/hanabokur0/RNC
+
+## What is RNC
+RNCは、意思決定から人の判断を取り除き、責任を構造的に正しい場所——**入力**——に戻すプロトコルです。
+
+## Core Principles
+- **即時決定**（True / False のみ）
+- **人の裁量ゼロ**
+- **解釈なし、交渉なし**
+- 組織 → ルールとスキーマを定義する
+- ユーザー → 入力の正確さに責任を持つ
+
+## Protocol
+
+### Step 1 — 生入力の注入
+マニュアル・利用規約・FAQ・過去の却下理由をそのまま投入。
+⚠️ 要約・編集禁止。人が前処理すると責任が混入する。
+
+### Step 2 — 構造抽出（自動）
+- 入力フィールド、必須／任意フラグ、データ型、禁止条件、条件分岐を抽出
+- 出力：\`Schema.json\` / \`Rules.json\`
+
+### Step 3 — 曖昧性検出
+「原則として」「適切な」「ケースバイケース」などをフラグ立て。
+人間はケースを判断しない——ルールを**定義する**だけ。
+
+### Step 4 — エラー定義
+エラーID・違反ルール・修正指示（命令形）を生成。
+出力：\`ErrorCatalog.json\`
+
+## Decision Output
+\`\`\`json
+{ "result": true | false, "error_ids": ["E-102"] }
+\`\`\`
+
+## Design Axiom
+> 責任は、その決定を所有する層に属する。`
+  },
+  {
+    id:'lib-3', title:"MCCP — Memory Compression & Classification Protocol", version:"v1.0",
+    category:"ai", when:"AIのコンテキストを効率化しRAGのトークン爆発を防ぎたいとき",
+    tags:["context","memory","compression","rag","lopas"],
+    description:"入力がコンテキストに載る前に、DoQ測定→L-Tag分類→最小ロードを行うエントリーゲート。",
+    markdown:`# MCCP — Memory Compression & Classification Protocol
+**Version:** 1.0 | **Category:** AI
+**Source:** https://github.com/hanabokur0/LoPAS-MCCP
+
+## What is MCCP
+処理が始まる**前に**、何をコンテキストに載せるかを決定するエントリーゲート。
+
+\`\`\`
+Input → [DoQ測定] → [L-Tag分類] → [最小コンテキストロード] → 処理
+\`\`\`
+
+## Step 1: DoQ測定（問いの密度）
+| DoQ範囲 | モード | トークン節約 |
+|--------|--------|------------|
+| < 0.4 | 最小処理モード（特定指標のみ） | 約80% |
+| ≥ 0.4 | 精密分析モード（関連クラスター展開） | 30〜50% |
+
+## Step 2: L-Tag分類
+| タグ | クラス | トリガー |
+|-----|--------|---------|
+| L-STR | 構造 | 構造、安定性、密度 |
+| L-INF | 推論 | 因果、予測、仮説 |
+| L-REL | 関係 | 接続、共鳴、関係 |
+| L-DYN | 動態 | 変化、移行、サイクル |
+
+非アクティブ層はフィルタリングではなく**ブロック**される。
+
+## Step 3: 圧縮
+非アクティブ指標を1行のハッシュに圧縮：
+\`CII(v1.0):CausalInference_0.2w\`
+
+## Design Principle
+> MCCPはプロンプトエンジニアリングではない。
+> 読み込まれたコンテキストの上で動作するのではなく、**何を読み込むかを決定する**。`
+  },
+  {
+    id:'lib-4', title:"CHD — Cognitive Hazard Defense", version:"v1.0",
+    category:"ai", when:"AIのハルシネーションを排除ではなく制御・設計したいとき",
+    tags:["hallucination","safety","resilience","lopas"],
+    description:"ハルシネーションをエラーではなく認知ハザードとして扱い、検出・封じ込め・再設計する3層プロトコル。",
+    markdown:`# CHD — Cognitive Hazard Defense
+**Version:** 1.0 | **Category:** AI
+**Source:** https://github.com/hanabokur0/LoPAS-CHD-Protocol
+
+## Core Thesis
+ハルシネーションは生成的認知において構造的に避けられない。
+CHDは**排除ではなく制御・設計・回復力**にフォーカスする。
+
+## 3 Layers
+
+### Layer 1: Detection（検出）
+パターン認識・異常検出・サイレント崩壊の検出
+→ 出力：**Structural Risk Map**
+
+### Layer 2: Containment（封じ込め）
+軌跡のリダイレクト・プロトコル誘導・再フレーミング
+→ 出力：**Safe Exploration Path**
+
+### Layer 3: Redesign（再設計）
+ハルシネーションをクリエイティブデータに変換・制御された発散
+→ 出力：**Controlled Hallucination Design**
+
+## CHD Indicators
+| 指標 | 概念 |
+|------|------|
+| CHD-S | Silence Risk：崩壊前の問いの不在 |
+| CHD-P | Pattern Drift：推論の不整合トレンド |
+| CHD-R | Resilience Resistance：崩壊の伝播しやすさ |
+| CHD-F | Friction Failure：ストレス下での崩壊 |
+| CHD-E | Emergent Hazard：予測不能なシステム全体への影響 |
+
+## Collapse Phases
+1. Silent Phase → 2. Pattern Drift → 3. Structural Break → 4. Chain Collapse → 5. Irreversible Outcome
+
+## Design Axiom
+> 知性は良い答えを生成する能力だけで尽きない。
+> 沈黙し、拒否し、不確実性を保存し、問いを変換する能力にも現れる。`
+  },
+  {
     id:'lib-2', title:"AI Session Initialization", version:"v0.9",
     category:"ai", when:"starting an AI session and output keeps missing the point",
     tags:["ai","context","session"],
